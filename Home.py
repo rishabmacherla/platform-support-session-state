@@ -5,6 +5,7 @@ import random
 import time
 import uuid
 import socket
+import os
 
 # Generate a timestamp-based I
 st.set_page_config(
@@ -12,7 +13,7 @@ st.set_page_config(
     page_icon="👋",
 )
 print(socket.gethostname())
-st.title(socket.gethostname())
+st.title(os.uname()[1])
 st.write("# Welcome to Streamlit! 👋")
 st.markdown(
     """
