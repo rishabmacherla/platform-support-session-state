@@ -3,13 +3,14 @@ import components.authenticate as authenticate
 from getmac import get_mac_address as gma
 import random
 import time
+import uuid
 
 # Generate a timestamp-based I
 st.set_page_config(
     page_title="Home",
     page_icon="👋",
 )
-st.title(gma())
+st.title(uuid.UUID(int=uuid.getnode()))
 st.write("# Welcome to Streamlit! 👋")
 st.markdown(
     """
