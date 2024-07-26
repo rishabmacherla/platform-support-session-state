@@ -2,6 +2,13 @@ import streamlit as st
 import components.authenticate as authenticate
 import uuid
 import random
+import time
+
+# Generate a timestamp-based ID
+timestamp_id = str(int(time.time()))
+
+st.title(timestamp_id)
+
 st.set_page_config(
     page_title="Home",
     page_icon="👋",
