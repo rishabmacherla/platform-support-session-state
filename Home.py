@@ -4,13 +4,15 @@ import components.authenticate as authenticate
 import random
 import time
 import uuid
+import socket
 
 # Generate a timestamp-based I
 st.set_page_config(
     page_title="Home",
     page_icon="👋",
 )
-st.title(uuid.UUID(int=uuid.getnode()))
+print(socket.gethostname())
+st.title(socket.gethostname())
 st.write("# Welcome to Streamlit! 👋")
 st.markdown(
     """
