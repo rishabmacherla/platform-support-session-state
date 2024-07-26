@@ -26,6 +26,7 @@ st.markdown(
 )
 # Check authentication when user lands on the home page.
 cur_sys_id = uuid.UUID(int=uuid.getnode())
+st.title(uuid.uuid4())
 user_det, info = authenticate.get_token_group_info(cur_sys_id)
 
 # Add login/logout buttons
