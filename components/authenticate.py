@@ -208,45 +208,46 @@ def get_token_group_info(cur_sys_id):
     # time_diff = current_time - time
     logged_in_user_det = {}
     authen_code = get_auth_code(cur_sys_id) # gets the auuth_code
-    print("auttthhhheennnnnnn", list(auth_codes.values()))
-    print("autthnnnn codeeee", authen_code[cur_sys_id])
-    info['auth_code'] = authen_code[cur_sys_id]
-    if info['auth_code'] not in authentication_codes_list and info['auth_code'] != '': # checks if the auth_code is already available,
-        # which means if user is already logged in but trying to refresh or moving between pages
-        # If not it means new user is logging in, so add that user and gets his info.
-        print("heeerrrreeeeeee")
-        authentication_codes_list.append((info['auth_code']))
+    if authen_code:
+        print("auttthhhheennnnnnn", list(auth_codes.values()))
+        print("autthnnnn codeeee", authen_code[cur_sys_id])
+        info['auth_code'] = authen_code[cur_sys_id]
+        if info['auth_code'] not in authentication_codes_list and info['auth_code'] != '': # checks if the auth_code is already available,
+            # which means if user is already logged in but trying to refresh or moving between pages
+            # If not it means new user is logging in, so add that user and gets his info.
+            print("heeerrrreeeeeee")
+            authentication_codes_list.append((info['auth_code']))
 
-        info['access_token'], info['id_token'] = get_user_tokens(info['auth_code'])
-        info['user_cognito_groups'], user_attributes = get_user_cognito_groups(info['id_token'])
-        # st.write("the user sttributes are", user_attributes)
+            info['access_token'], info['id_token'] = get_user_tokens(info['auth_code'])
+            info['user_cognito_groups'], user_attributes = get_user_cognito_groups(info['id_token'])
+            # st.write("the user sttributes are", user_attributes)
 
-        if len(user_attributes) > 0:
-            logged_in_user_det['user_name'] = user_attributes['Username']
-            logged_in_user_det['email'] = user_attributes['Email']
-            logged_in_user_det['auth_code'] = info['auth_code']
-            logged_in_user_det['access_token'] = info['access_token']
-            logged_in_user_det['id_token'] = info['id_token']
-            logged_in_user_det['user_groups'] = info['user_cognito_groups']
-            logged_in_user_det['user_system_id'] = uuid.UUID(int=uuid.getnode())
-            user_all_details[user_attributes['Cognito User Id']] = logged_in_user_det
+            if len(user_attributes) > 0:
+                logged_in_user_det['user_name'] = user_attributes['Username']
+                logged_in_user_det['email'] = user_attributes['Email']
+                logged_in_user_det['auth_code'] = info['auth_code']
+                logged_in_user_det['access_token'] = info['access_token']
+                logged_in_user_det['id_token'] = info['id_token']
+                logged_in_user_det['user_groups'] = info['user_cognito_groups']
+                logged_in_user_det['user_system_id'] = uuid.UUID(int=uuid.getnode())
+                user_all_details[user_attributes['Cognito User Id']] = logged_in_user_det
 
 
 
-    # print("auth codes are",auth_codes)
-    # if the auth_code is available but expired, then, access token and other info will be null.
-    # So, this condition checks, if auth_code is available but expired and other token and info is
-    # null then asks to re-login
-    if info['auth_code'] != '' and (info['access_token'] == '' or info['id_token'] == '' or
-                                    info['user_cognito_groups'] == ''):
-        # if we want to logout user after sometime (even they are using) then add this below code as
-        # another or after and in above if
-        # or (time_diff.total_seconds() >= time_we_want_in_secs
-        button_login()
-        st.error("Please login")
-        st.stop()
-        # This above code asks the user to re-login and then show the error message and
-        # then stops the further execution of code.
+        # print("auth codes are",auth_codes)
+        # if the auth_code is available but expired, then, access token and other info will be null.
+        # So, this condition checks, if auth_code is available but expired and other token and info is
+        # null then asks to re-login
+        if info['auth_code'] != '' and (info['access_token'] == '' or info['id_token'] == '' or
+                                        info['user_cognito_groups'] == ''):
+            # if we want to logout user after sometime (even they are using) then add this below code as
+            # another or after and in above if
+            # or (time_diff.total_seconds() >= time_we_want_in_secs
+            button_login()
+            st.error("Please login")
+            st.stop()
+            # This above code asks the user to re-login and then show the error message and
+            # then stops the further execution of code.
 
 
     # print("info is ", info)
