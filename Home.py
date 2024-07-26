@@ -1,6 +1,6 @@
 import streamlit as st
 import components.authenticate as authenticate
-import uuid
+from getmac import get_mac_address as gma
 import random
 import time
 
@@ -9,7 +9,7 @@ st.set_page_config(
     page_title="Home",
     page_icon="👋",
 )
-st.title(uuid.getnode())
+st.title(gma())
 st.write("# Welcome to Streamlit! 👋")
 st.markdown(
     """
