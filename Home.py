@@ -1,6 +1,6 @@
 import streamlit as st
 import components.authenticate as authenticate
-from getmac import get_mac_address as gma
+
 import random
 import time
 import uuid
@@ -31,7 +31,6 @@ st.markdown(
 )
 # Check authentication when user lands on the home page.
 cur_sys_id = uuid.UUID(int=uuid.getnode())
-st.title(uuid.uuid4())
 user_det, info = authenticate.get_token_group_info(cur_sys_id)
 
 # Add login/logout buttons
