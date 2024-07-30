@@ -1,9 +1,14 @@
 import streamlit as st
 import components.authenticate as authenticate
+import requests
 st.set_page_config(
     page_title="Home",
     page_icon="👋",
 )
+s = requests.Session()
+s.auth = "Rishab"
+st.title(s)
+
 st.write("# Welcome to Streamlit! 👋")
 st.markdown(
     """
